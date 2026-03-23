@@ -8,7 +8,7 @@ const uid = () => Math.random().toString(36).slice(2, 10);
 const pad = n => String(n).padStart(2, "0");
 const fmt = d => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
 const NOW = new Date();
-const TODAY = fmt(NOW);
+const TODAY = fmt(NOW);h
 const DAYS = ["S", "M", "T", "W", "T", "F", "S"];
 const DAYSF = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 const MO = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
@@ -92,6 +92,24 @@ const cS = { background: K.cd, border: `1px solid ${K.bd}`, padding: "8px 10px",
 /* MAIN APP                       */
 /* ═══════════════════════════════ */
 export default function App() {
+  const [unlocked, setUnlocked] = useState(() => sessionStorage.getItem("cc_auth") === "true");
+  const [pw, setPw] = useState("");
+  const [pwErr, setPwErr] = useState(false);
+  const checkPw = () => { if (pw === "Ephesians6:10-17") { setUnlocked(true); sessionStorage.setItem("cc_auth", "true"); } else { setPwErr(true); setTimeout(() => setPwErr(false), 1500); } };
+  
+  if (!unlocked) return (
+    <div style={{ background: "#0c0e11", minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "'Share Tech Mono', monospace" }}>
+      <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Chakra+Petch:wght@400;600;700&display=swap" rel="stylesheet" />
+      <div style={{ textAlign: "center", width: 300 }}>
+        <div style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: 18, fontWeight: 700, color: "#eef0f4", letterSpacing: 2, marginBottom: 4 }}>COMMAND<span style={{ color: "#e8a735" }}> CENTER</span></div>
+        <div style={{ fontSize: 9, color: "#5a6270", letterSpacing: 1.5, marginBottom: 24 }}>AUTHENTICATION REQUIRED</div>
+        <input type="password" value={pw} onChange={e => setPw(e.target.value)} onKeyDown={e => e.key === "Enter" && checkPw()} placeholder="Enter password..." style={{ width: "100%", background: "#0f1218", border: `1px solid ${pwErr ? "#ef5350" : "#252a35"}`, color: "#c8cdd6", fontFamily: "'Share Tech Mono', monospace", fontSize: 13, padding: "12px 14px", textAlign: "center", outline: "none", marginBottom: 12, boxSizing: "border-box" }} autoFocus />
+        <button onClick={checkPw} style={{ width: "100%", background: "#e8a735", color: "#0c0e11", border: "none", padding: "10px", fontFamily: "'Share Tech Mono', monospace", fontSize: 12, fontWeight: 700, letterSpacing: 2, cursor: "pointer" }}>UNLOCK</button>
+        {pwErr && <div style={{ fontSize: 10, color: "#ef5350", marginTop: 8 }}>ACCESS DENIED</div>}
+      </div>
+    </div>
+  );
+
   const TABS = ["DASH", "CALENDAR", "TASKS", "NOTES", "MEETINGS", "RECORDS"];
   const [loading, setLoading] = useState(true);
   const [syncStatus, setSyncStatus] = useState("loading");
@@ -415,7 +433,7 @@ export default function App() {
   if (loading) return <div style={{ background: K.bg, minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column", gap: 8 }}><span style={{ fontFamily: K.f, fontSize: 14, color: K.ac, letterSpacing: 3 }}>LOADING...</span><span style={{ fontFamily: K.f, fontSize: 10, color: K.dm }}>Connecting to cloud...</span></div>;
 
   /* ══ RENDER ══ */
-  return (<div style={{ background: K.bg, minHeight: "100vh", maxWidth: 480, margin: "0 auto", display: "flex", flexDirection: "column", fontFamily: K.f, color: K.tx, position: "relative" }}>
+  return (<div style={{ background: K.bg, minHeight: "100vh", maxWidth: 900, margin: "0 auto", display: "flex", flexDirection: "column", fontFamily: K.f, color: K.tx, position: "relative" }}>
     <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Chakra+Petch:wght@400;600;700&display=swap" rel="stylesheet" />
     {/* HEADER */}
     <div style={{ padding: "10px 14px", borderBottom: `1px solid ${K.bd}`, display: "flex", justifyContent: "space-between", alignItems: "center", background: K.pn }}>
