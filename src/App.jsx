@@ -8,7 +8,7 @@ const uid = () => Math.random().toString(36).slice(2, 10);
 const pad = n => String(n).padStart(2, "0");
 const fmt = d => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
 const NOW = new Date();
-const TODAY = fmt(NOW);h
+const TODAY = fmt(NOW);
 const DAYS = ["S", "M", "T", "W", "T", "F", "S"];
 const DAYSF = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 const MO = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
@@ -96,7 +96,7 @@ export default function App() {
   const [pw, setPw] = useState("");
   const [pwErr, setPwErr] = useState(false);
   const checkPw = () => { if (pw === "Ephesians6:10-17") { setUnlocked(true); sessionStorage.setItem("cc_auth", "true"); } else { setPwErr(true); setTimeout(() => setPwErr(false), 1500); } };
-  
+
   if (!unlocked) return (
     <div style={{ background: "#0c0e11", minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "'Share Tech Mono', monospace" }}>
       <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Chakra+Petch:wght@400;600;700&display=swap" rel="stylesheet" />
