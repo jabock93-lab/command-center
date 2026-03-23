@@ -3,8 +3,8 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const authHeader = req.headers['x-api-key'];
-  if (authHeader !== 'Ephesians6:10-17') {
+  const authKey = req.headers['x-api-key'] || req.query.key;
+  if (authKey !== 'Ephesians6:10-17') {
     return res.status(401).json({ error: 'Unauthorized' });
   }
 
